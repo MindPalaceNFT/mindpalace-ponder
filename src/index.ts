@@ -10,11 +10,6 @@ let idCounter = 0;
 let totalStakers: bigint = BigInt(0);
 const address = "0xB6CE133dF3528620B02160D7D07E082F3453D3EB";
 
-const viem = createPublicClient({
-  chain: mainnet,
-  transport: http(process.env.PONDER_RPC_URL_1),
-});
-
 ponder.on("Staking:Staked", async ({ event, context }) => {
   const { staker } = event.args;
 
@@ -26,9 +21,13 @@ ponder.on("Staking:Staked", async ({ event, context }) => {
     },
   });
 
-  await context.db.Stats.update({
+  await context.db.Stats.upsert({
     id: 0,
-    data: {
+    create: {
+      totalStakers: totalStakers++,
+      merkleRoot: "0x0",
+    },
+    update: {
       totalStakers: totalStakers++,
     },
   });
