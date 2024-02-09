@@ -26,11 +26,4 @@ ponder.on("Staking:Staked", async ({ event, context }) => {
       points: BigInt(0),
     },
   });
-
-  await context.db.Stats.update({
-    id: 1,
-    data: {
-      totalStakers: totalStakers++,
-    },
-  });
 });
