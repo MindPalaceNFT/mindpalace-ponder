@@ -1,7 +1,7 @@
 import { createConfig } from "@ponder/core";
 import { http } from "viem";
 
-import { FileStoreAbi } from "./abis/FileStoreAbi";
+import { StakingAbi } from "./abis/Staking";
 
 export default createConfig({
   networks: {
@@ -11,11 +11,11 @@ export default createConfig({
     },
   },
   contracts: {
-    FileStore: {
+    Staking: {
       network: "mainnet",
-      abi: FileStoreAbi,
-      address: "0x9746fD0A77829E12F8A9DBe70D7a322412325B91",
-      startBlock: 15963553,
+      abi: StakingAbi,
+      address: "0xB6CE133dF3528620B02160D7D07E082F3453D3EB",
+      startBlock: 19105343,
     },
   },
 });
