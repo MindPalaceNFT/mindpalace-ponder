@@ -17,13 +17,48 @@ const viem = createPublicClient({
 
 ponder.on("Staking:Staked", async ({ event, context }) => {
   const { staker } = event.args;
-  const { client } = context;
 
   await context.db.User.create({
-    id: idCounter++,
+    id: staker,
     data: {
-      address: staker,
       points: BigInt(0),
+      staked: true,
+    },
+  });
+
+  await context.db.Stats.update({
+    id: 0,
+    data: {
+      totalStakers: totalStakers++,
+    },
+  });
+});
+
+ponder.on("Staking:Unstaked", async ({ event, context }) => {
+  const { staker: unstaker } = event.args;
+
+  await context.db.User.update({
+    id: unstaker,
+    data: {
+      staked: false,
+    },
+  });
+
+  await context.db.Stats.update({
+    id: 0,
+    data: {
+      totalStakers: totalStakers--,
+    },
+  });
+});
+
+ponder.on("Staking:MerkleRootUpdated", async ({ event, context }) => {
+  const { merkleRoot } = event.args;
+
+  await context.db.Stats.update({
+    id: 0,
+    data: {
+      merkleRoot: merkleRoot,
     },
   });
 });
