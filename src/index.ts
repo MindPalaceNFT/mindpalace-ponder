@@ -1,10 +1,4 @@
-import type { Hex } from "viem";
-import { createPublicClient, fromHex, http } from "viem";
-
 import { ponder } from "@/generated";
-
-import { StakingAbi } from "../abis/Staking";
-import { mainnet } from "viem/chains";
 
 let idCounter = 0;
 let totalStakers: bigint = BigInt(0);
