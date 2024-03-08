@@ -6,7 +6,7 @@ import { StakingAbi } from "./abis/Staking";
 export default createConfig({
   networks: {
     mainnet: {
-      chainId: 1,
+      chainId: 81457,
       transport: http(process.env.PONDER_RPC_URL_1),
     },
   },
@@ -14,7 +14,7 @@ export default createConfig({
     Staking: {
       network: "mainnet",
       abi: StakingAbi,
-      address: "0xB6CE133dF3528620B02160D7D07E082F3453D3EB",
+      address: "0x3d2F0400BB52798cF016406872b1933eD5d3a90e",
       startBlock: 19105343,
     },
   },
