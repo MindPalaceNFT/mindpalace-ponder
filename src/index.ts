@@ -1,17 +1,32 @@
+import type { Hex } from "viem";
+import { createPublicClient, fromHex, http } from "viem";
+
 import { ponder } from "@/generated";
+
+import { StakingAbi } from "../abis/Staking";
+import { mainnet } from "viem/chains";
 
 let idCounter = 0;
 let totalStakers: bigint = BigInt(0);
-const address = "0x3d2F0400BB52798cF016406872b1933eD5d3a90e";
+const address = "0xB6CE133dF3528620B02160D7D07E082F3453D3EB";
+
+type StakedArgs = {
+  staker: string;
+  amount: bigint;
+};
 
 ponder.on("Staking:Staked", async ({ event, context }) => {
-  const { staker } = event.args;
+  const { staker, amount } = event.args as StakedArgs;
 
-  await context.db.User.create({
+  await context.db.User.upsert({
     id: staker,
-    data: {
+    create: {
       points: BigInt(0),
       staked: true,
+      ethStaked: amount,
+    },
+    update: {
+      ethStaked: amount,
     },
   });
 
@@ -28,12 +43,13 @@ ponder.on("Staking:Staked", async ({ event, context }) => {
 });
 
 ponder.on("Staking:Unstaked", async ({ event, context }) => {
-  const { staker: unstaker } = event.args;
+  const { staker: unstaker, amount } = event.args as StakedArgs;
 
   await context.db.User.update({
     id: unstaker,
     data: {
       staked: false,
+      ethStaked: BigInt(0),
     },
   });
 
@@ -41,17 +57,6 @@ ponder.on("Staking:Unstaked", async ({ event, context }) => {
     id: 0,
     data: {
       totalStakers: totalStakers--,
-    },
-  });
-});
-
-ponder.on("Staking:MerkleRootUpdated", async ({ event, context }) => {
-  const { merkleRoot } = event.args;
-
-  await context.db.Stats.update({
-    id: 0,
-    data: {
-      merkleRoot: merkleRoot,
     },
   });
 });

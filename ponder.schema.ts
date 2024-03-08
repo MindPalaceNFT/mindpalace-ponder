@@ -5,6 +5,7 @@ export default createSchema((p) => ({
     id: p.string(), // Add the missing 'id' property
     points: p.bigint(),
     staked: p.boolean(),
+    ethStaked: p.bigint(),
   }),
   Stats: p.createTable({
     id: p.int(),
