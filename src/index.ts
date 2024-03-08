@@ -8,7 +8,7 @@ import { mainnet } from "viem/chains";
 
 let idCounter = 0;
 let totalStakers: bigint = BigInt(0);
-const address = "0xB6CE133dF3528620B02160D7D07E082F3453D3EB";
+const address = "0x3d2F0400BB52798cF016406872b1933eD5d3a90e";
 
 ponder.on("Staking:Staked", async ({ event, context }) => {
   const { staker } = event.args;
