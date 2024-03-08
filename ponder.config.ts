@@ -6,7 +6,7 @@ import { abi } from "./abis/Staking";
 export default createConfig({
   networks: {
     blast: {
-      chainId: 1,
+      chainId: 81457,
       transport: http(process.env.PONDER_RPC_URL_1),
     },
   },
@@ -15,7 +15,7 @@ export default createConfig({
       network: "blast",
       abi: abi as Abi,
       address: "0x3d2F0400BB52798cF016406872b1933eD5d3a90e",
-      startBlock: 19105343,
+      startBlock: 508777,
     },
   },
 });
