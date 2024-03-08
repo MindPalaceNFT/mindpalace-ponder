@@ -1,4 +1,6 @@
-export const StakingAbi = [
+import { Abi } from "viem";
+
+export const abi = [
   {
     type: "constructor",
     inputs: [
@@ -229,5 +231,3 @@ export const StakingAbi = [
     inputs: [{ name: "account", type: "address", internalType: "address" }],
   },
 ];
-
-export default StakingAbi;

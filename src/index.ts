@@ -1,14 +1,7 @@
-import type { Hex } from "viem";
-import { createPublicClient, fromHex, http } from "viem";
-
 import { ponder } from "@/generated";
-
-import { StakingAbi } from "../abis/Staking";
-import { mainnet } from "viem/chains";
 
 let idCounter = 0;
 let totalStakers: bigint = BigInt(0);
-const address = "0xB6CE133dF3528620B02160D7D07E082F3453D3EB";
 
 type StakedArgs = {
   staker: string;
